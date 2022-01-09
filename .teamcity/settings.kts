@@ -99,24 +99,3 @@ object HttpsGithubComAndreyGrozovExampleTeamcityGitRefsHeadsMaster : GitVcsRoot(
     }
 })
 
-object HttpsGithubComAndreyGrozovExampleTeamcityGitRefsHeadsMaster1 : GitVcsRoot({
-    name = "https://github.com/andrey-grozov/example-teamcity.git#refs/heads/master (1)"
-    url = "https://github.com/andrey-grozov/example-teamcity.git"
-    branch = "refs/heads/master"
-    branchSpec = "refs/heads/*"
-    authMethod = password {
-        userName = "a.grozov@yandex.ru"
-        password = "zxx3f130840fdce8b4cf4008c09013cc838"
-    }
-})
-
-object HttpsGithubComAragastmatbExampleTeamcityGitRefsHeadsMaster : GitVcsRoot({
-    name = "https://github.com/aragastmatb/example-teamcity.git#refs/heads/master"
-    url = "https://github.com/aragastmatb/example-teamcity.git"
-    branch = "refs/heads/master"
-    branchSpec = "refs/heads/*"
-    authMethod = password {
-        userName = "aragast"
-        password = "credentialsJSON:0df58bae-9b65-4de0-bb4a-f24d94cb9562"
-    }
-})
