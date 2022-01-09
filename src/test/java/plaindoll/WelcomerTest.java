@@ -23,4 +23,5 @@ public class WelcomerTest {
 		assertThat(welcomer.sayFarewell(), containsString("hunter"));
 		assertThat(welcomer.sayHello(), containsString("hunter"));
 	}
+///test comment
 }
