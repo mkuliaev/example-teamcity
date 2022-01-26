@@ -29,31 +29,23 @@ version = "2021.2"
 
 project {
 
-    vcsRoot(HttpsGithubComAragastmatbExampleTeamcityGitRefsHeadsMaster)
+    vcsRoot(HttpsGithubComPitonixxExampleTeamcityGitRefsHeadsMaster)
 
     buildType(TestOrDeployToNexus)
-    buildType(Testing)
-
-    params {
-        text("my_name", "", allowEmpty = false)
-    }
 }
 
 object TestOrDeployToNexus : BuildType({
     name = "Test or Deploy to Nexus"
 
-    artifactRules = "+:target/*.jar"
-
     vcs {
-        root(HttpsGithubComAragastmatbExampleTeamcityGitRefsHeadsMaster)
+        root(HttpsGithubComPitonixxExampleTeamcityGitRefsHeadsMaster)
     }
 
     steps {
         maven {
-            name = "Deploy"
 
             conditions {
-                contains("teamcity.build.branch", "master")
+                equals("teamcity.build.branch.is_default", "true")
             }
             goals = "clean deploy"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
@@ -75,21 +67,13 @@ object TestOrDeployToNexus : BuildType({
     }
 })
 
-object Testing : BuildType({
-    name = "Testing"
-
-    vcs {
-        root(HttpsGithubComAragastmatbExampleTeamcityGitRefsHeadsMaster)
-    }
-})
-
-object HttpsGithubComAragastmatbExampleTeamcityGitRefsHeadsMaster : GitVcsRoot({
-    name = "https://github.com/aragastmatb/example-teamcity.git#refs/heads/master"
-    url = "https://github.com/aragastmatb/example-teamcity.git"
+object HttpsGithubComPitonixxExampleTeamcityGitRefsHeadsMaster : GitVcsRoot({
+    name = "https://github.com/Pitonixx/example-teamcity.git#refs/heads/master"
+    url = "https://github.com/Pitonixx/example-teamcity.git"
     branch = "refs/heads/master"
     branchSpec = "refs/heads/*"
     authMethod = password {
-        userName = "aragast"
-        password = "credentialsJSON:0df58bae-9b65-4de0-bb4a-f24d94cb9562"
+        userName = "Pitonixxx"
+        password = "credentialsJSON:70821f7a-aaf1-424f-8243-98104bcec1a8"
     }
 })
