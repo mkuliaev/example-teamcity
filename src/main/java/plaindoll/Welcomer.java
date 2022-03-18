@@ -10,4 +10,7 @@ public class Welcomer{
 	public String sayStatus() {
 		return "Hello! My status is Good";
 	}
+	public String sayReview() {
+		return "It is a pity that Alexey's lectures are coming to an end. He is the best knowledge hunter)";
+	}
 }
