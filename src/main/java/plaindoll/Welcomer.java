@@ -8,6 +8,6 @@ public class Welcomer{
 		return "Farewell, good hunter. May you find your worth in waking world.";
 	}
 	public String sayCustom() {
-		return "Cutom method class realization for a good hunter. What else do you need, Netology?";
+		return "Custom method class realization for a good hunter. What else do you need, Netology?";
 	}	
 }
