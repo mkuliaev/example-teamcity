@@ -58,6 +58,12 @@ object Kokobops : Project({
     name = "kokobops"
 
     vcsRoot(Kokobops_GitGithubComKokobopsExampleTeamcityGit)
+
+    buildType(Kokobops_Teamcity)
+})
+
+object Kokobops_Teamcity : BuildType({
+    name = "teamcity"
 })
 
 object Kokobops_GitGithubComKokobopsExampleTeamcityGit : GitVcsRoot({
