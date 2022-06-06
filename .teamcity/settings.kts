@@ -48,11 +48,4 @@ project {
             preventDependencyCleanup = false
         }
     }
-
-    subProject(GitGithubComKokobopsExampleTeamcityGit)
 }
-
-
-object GitGithubComKokobopsExampleTeamcityGit : Project({
-    name = "git@github.com:kokobops/example-teamcity.git"
-})
