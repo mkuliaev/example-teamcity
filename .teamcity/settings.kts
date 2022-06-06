@@ -72,6 +72,10 @@ object Kokobops_Teamcity : BuildType({
 
     steps {
         maven {
+
+            conditions {
+                doesNotContain("teamcity.build.branch", "master")
+            }
             goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
         }
