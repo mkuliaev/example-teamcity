@@ -1,5 +1,6 @@
 import jetbrains.buildServer.configs.kotlin.*
-import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.projectFeatures.buildReportTab
+import jetbrains.buildServer.configs.kotlin.projectFeatures.githubConnection
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -26,34 +27,25 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2022.04"
 
 project {
+    description = "Contains all other projects"
 
-    buildType(Teamcity)
+    features {
+        buildReportTab {
+            id = "PROJECT_EXT_1"
+            title = "Code Coverage"
+            startPage = "coverage.zip!index.html"
+        }
+        githubConnection {
+            id = "PROJECT_EXT_5"
+            displayName = "GitHub.com"
+            clientId = "kokobops"
+            clientSecret = "credentialsJSON:2cdd3386-fa64-4a04-913a-2a68fa7f653e"
+        }
+    }
+
+    cleanup {
+        baseRule {
+            preventDependencyCleanup = false
+        }
+    }
 }
-
-object Teamcity : BuildType({
-    name = "teamcity"
-
-    vcs {
-        root(AbsoluteId("GitGithubComKokobopsExampleTeamcityGit"))
-    }
-
-    steps {
-        maven {
-            name = "test"
-
-            conditions {
-                doesNotContain("teamcity.build.branch", "master")
-            }
-            goals = "clean test"
-            runnerArgs = "-Dmaven.test.failure.ignore=true"
-        }
-        maven {
-            name = "package"
-
-            conditions {
-                contains("teamcity.build.branch", "master")
-            }
-            goals = "clean package"
-        }
-    }
-})
