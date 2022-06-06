@@ -1,6 +1,7 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.projectFeatures.buildReportTab
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubConnection
+import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -55,4 +56,18 @@ project {
 
 object Kokobops : Project({
     name = "kokobops"
+
+    vcsRoot(Kokobops_GitGithubComKokobopsExampleTeamcityGit)
+})
+
+object Kokobops_GitGithubComKokobopsExampleTeamcityGit : GitVcsRoot({
+    name = "git@github.com:kokobops/example-teamcity.git"
+    url = "git@github.com:kokobops/example-teamcity.git"
+    pushUrl = "git@github.com:kokobops/example-teamcity.git"
+    branch = "refs/heads/master"
+    branchSpec = "refs/heads/*"
+    authMethod = customPrivateKey {
+        customKeyPath = "/opt/teamcity/.ssh/id_rsa"
+        passphrase = "credentialsJSON:9cd0c03c-00c3-4651-833b-9345be8e4b45"
+    }
 })
