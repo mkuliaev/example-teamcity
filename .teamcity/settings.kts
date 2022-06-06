@@ -64,6 +64,10 @@ object Kokobops : Project({
 
 object Kokobops_Teamcity : BuildType({
     name = "teamcity"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
 })
 
 object Kokobops_GitGithubComKokobopsExampleTeamcityGit : GitVcsRoot({
