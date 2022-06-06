@@ -48,4 +48,11 @@ project {
             preventDependencyCleanup = false
         }
     }
+
+    subProject(Kokobops)
 }
+
+
+object Kokobops : Project({
+    name = "kokobops"
+})
