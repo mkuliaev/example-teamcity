@@ -72,6 +72,7 @@ object Kokobops_Teamcity : BuildType({
 
     steps {
         maven {
+            name = "test"
 
             conditions {
                 doesNotContain("teamcity.build.branch", "master")
