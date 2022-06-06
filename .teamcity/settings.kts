@@ -80,6 +80,14 @@ object Kokobops_Teamcity : BuildType({
             goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
         }
+        maven {
+            name = "package"
+
+            conditions {
+                contains("teamcity.build.branch", "master")
+            }
+            goals = "clean package"
+        }
     }
 })
 
