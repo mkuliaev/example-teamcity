@@ -8,7 +8,7 @@
         <param name="keepData.1.type" value="everything" />
         <param name="limit.type" value="all" />
         <param name="preserveArtifacts" value="true" />
-        <param name="ruleDisabled" value="false" />
+        <param name="ruleDisabled" value="true" />
       </parameters>
     </extension>
     <extension id="PROJECT_EXT_2" type="versionedSettings">
