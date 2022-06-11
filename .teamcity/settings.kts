@@ -52,7 +52,7 @@ object Build : BuildType({
             conditions {
                 contains("teamcity.build.branch", "master")
             }
-            goals = "cleab package"
+            goals = "clean package"
         }
     }
 
