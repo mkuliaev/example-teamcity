@@ -1,6 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
-import jetbrains.buildServer.configs.kotlin.sharedResource
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
 /*
@@ -30,33 +29,10 @@ version = "2022.04"
 project {
 
     buildType(Build)
-
-    template(MavenBuild)
-
-    params {
-        text("cat_name", "Wizzard", readOnly = true, allowEmpty = true)
-        param("env.cat_name", "%cat_name%")
-        param("env.name", "Alexey1")
-    }
-
-    features {
-        sharedResource {
-            id = "PROJECT_EXT_2"
-            name = "ya"
-            resourceType = quoted(100)
-        }
-    }
 }
 
 object Build : BuildType({
-    templates(MavenBuild)
     name = "Build"
-})
-
-object MavenBuild : Template({
-    name = "maven build"
-
-    artifactRules = "target/*.jar => target"
 
     vcs {
         root(DslContext.settingsRoot)
@@ -64,23 +40,22 @@ object MavenBuild : Template({
 
     steps {
         maven {
-            id = "RUNNER_1"
+            name = "mvn clean deploy"
 
             conditions {
-                doesNotContain("teamcity.build.branch", "master")
+                equals("teamcity.build.branch", "master")
             }
-            goals = "clean test"
+            goals = "clean deploy"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
             userSettingsSelection = "settings.xml"
         }
         maven {
-            name = "Deploy"
-            id = "RUNNER_4"
+            name = "mvn clean test"
 
             conditions {
-                contains("teamcity.build.branch", "master")
+                doesNotEqual("teamcity.build.branch", "master")
             }
-            goals = "clean deploy"
+            goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
             userSettingsSelection = "settings.xml"
         }
@@ -88,7 +63,6 @@ object MavenBuild : Template({
 
     triggers {
         vcs {
-            id = "TRIGGER_1"
         }
     }
 })

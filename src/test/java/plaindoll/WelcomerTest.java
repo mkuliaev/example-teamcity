@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class WelcomerTest {
-	
+
 	private Welcomer welcomer = new Welcomer();
 
 	@Test
@@ -23,7 +23,7 @@ public class WelcomerTest {
 		assertThat(welcomer.sayFarewell(), containsString("hunter"));
 	}
 	@Test
-	public void welcomerSaysSilver(){
-		assertThat(welcomer.sayNeedGold(), containsString("gold"));
-	}
+        public void welcomerSaysHunters(){
+                assertThat(welcomer.sayHunters(), containsString("hunters"));
+        }
 }
