@@ -31,8 +31,6 @@ project {
 
     buildType(Build)
 
-    template(MavenBuild)
-
     params {
         text("cat_name", "Wizzard", readOnly = true, allowEmpty = true)
         param("env.cat_name", "%cat_name%")
