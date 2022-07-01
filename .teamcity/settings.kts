@@ -64,10 +64,10 @@ object MavenBuild : Template({
 
     steps {
         maven {
-            id = "RUNNER_1"
+            name = "Test"
 
             conditions {
-                doesNotContain("teamcity.build.branch", "test_step4")
+                doesNotContain("teamcity.build.branch", "master")
             }
             goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
@@ -75,12 +75,11 @@ object MavenBuild : Template({
         }
         maven {
             name = "Deploy"
-            id = "RUNNER_4"
 
             conditions {
-                contains("teamcity.build.branch", "test_step4")
+                contains("teamcity.build.branch", "master")
             }
-            goals = "clean deploy"
+            goals = "clean package"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
             userSettingsSelection = "settings.xml"
         }
