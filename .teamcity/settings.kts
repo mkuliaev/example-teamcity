@@ -2,6 +2,7 @@ import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.sharedResource
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
+import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -29,6 +30,8 @@ version = "2022.04"
 
 project {
 
+    vcsRoot(HttpsGithubComApKonovalovExampleTeamcityRefsHeadsMaster)
+
     buildType(Build)
 
     template(MavenBuild)
@@ -43,6 +46,7 @@ project {
         sharedResource {
             id = "PROJECT_EXT_2"
             name = "ya"
+            enabled = true
             resourceType = quoted(100)
         }
     }
@@ -51,6 +55,26 @@ project {
 object Build : BuildType({
     templates(MavenBuild)
     name = "Build"
+
+    steps {
+        maven {
+            name = "Clean for master branch"
+            id = "RUNNER_3"
+
+            conditions {
+                equals("teamcity.build.branch", "master")
+            }
+            goals = "clean package"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+            userSettingsSelection = "settings.xml"
+        }
+        maven {
+            id = "RUNNER_2"
+            goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+        }
+        stepsOrder = arrayListOf("RUNNER_3", "RUNNER_1", "RUNNER_4", "RUNNER_2")
+    }
 })
 
 object MavenBuild : Template({
@@ -59,7 +83,7 @@ object MavenBuild : Template({
     artifactRules = "target/*.jar => target"
 
     vcs {
-        root(DslContext.settingsRoot)
+        root(HttpsGithubComApKonovalovExampleTeamcityRefsHeadsMaster)
     }
 
     steps {
@@ -91,4 +115,11 @@ object MavenBuild : Template({
             id = "TRIGGER_1"
         }
     }
+})
+
+object HttpsGithubComApKonovalovExampleTeamcityRefsHeadsMaster : GitVcsRoot({
+    name = "https://github.com/ap-konovalov/example-teamcity#refs/heads/master"
+    url = "https://github.com/ap-konovalov/example-teamcity"
+    branch = "refs/heads/master"
+    branchSpec = "refs/heads/*"
 })
