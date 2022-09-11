@@ -29,21 +29,10 @@ version = "2022.04"
 project {
 
     buildType(Build)
-
-    params {
-        text("top_level", "i'm here wewewewewe", readOnly = true, allowEmpty = true)
-    }
 }
 
 object Build : BuildType({
     name = "Build"
-
-    artifactRules = "target/*.jar"
-
-    params {
-        text("env.another", "wewew", allowEmpty = false)
-        param("greeter", "hello")
-    }
 
     vcs {
         root(DslContext.settingsRoot)
@@ -54,7 +43,7 @@ object Build : BuildType({
             name = "Test"
 
             conditions {
-                doesNotContain("teamcity.build.branch", "master")
+                doesNotContain("branch", "master")
             }
             goals = "clean test"
             userSettingsSelection = "settings.xml"
