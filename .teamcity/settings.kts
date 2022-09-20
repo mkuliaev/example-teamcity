@@ -1,6 +1,7 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
+import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -28,22 +29,15 @@ version = "2022.04"
 
 project {
 
-    buildType(Build)
+    vcsRoot(Netology)
 
-    params {
-        text("top_level", "i'm here wewewewewe", readOnly = true, allowEmpty = true)
-    }
+    buildType(Build)
 }
 
 object Build : BuildType({
     name = "Build"
 
-    artifactRules = "target/*.jar"
-
-    params {
-        text("env.another", "wewew", allowEmpty = false)
-        param("greeter", "hello")
-    }
+    publishArtifacts = PublishMode.SUCCESSFUL
 
     vcs {
         root(DslContext.settingsRoot)
@@ -57,6 +51,7 @@ object Build : BuildType({
                 doesNotContain("teamcity.build.branch", "master")
             }
             goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
             userSettingsSelection = "settings.xml"
         }
         maven {
@@ -65,7 +60,7 @@ object Build : BuildType({
             conditions {
                 equals("teamcity.build.branch.is_default", "true")
             }
-            goals = "clean deploy"
+            goals = "deploy"
             userSettingsSelection = "settings.xml"
         }
     }
@@ -73,5 +68,14 @@ object Build : BuildType({
     triggers {
         vcs {
         }
+    }
+})
+
+object Netology : GitVcsRoot({
+    name = "netology"
+    url = "git@github.com:AGS-36/example-teamcity.git"
+    branch = "master"
+    authMethod = uploadedKey {
+        uploadedKey = "teamcity"
     }
 })
