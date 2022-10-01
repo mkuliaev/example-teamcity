@@ -14,8 +14,8 @@
 	</properties>
 	<distributionManagement>
 		<repository>
-				<id>nexus</id>
-				<url>http://51.250.34.28:8081/repository/maven-releases</url>
+				<id>nexus.netology.askbow.io</id>
+				<url>http://nexus.netology.askbow.io:8081/repository/maven-releases</url>
 		</repository>
 	</distributionManagement>
 	<dependencies>
