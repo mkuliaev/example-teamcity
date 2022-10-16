@@ -1,0 +1,41 @@
+package _Self.buildTypes
+
+import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.triggers.vcs
+
+object Build : BuildType({
+    name = "Build"
+
+    vcs {
+        root(GitGithubComAndreyMishinExampleTeamcityGitRefsHeadsMaster)
+    }
+
+    steps {
+        maven {
+            name = "default branch"
+
+            conditions {
+                equals("teamcity.build.branch.is_default", "true")
+            }
+            goals = "clean deploy"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+            userSettingsSelection = "maven_settings"
+        }
+        maven {
+            name = "not default branch"
+            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
+
+            conditions {
+                doesNotContain("teamcity.build.branch", "master")
+            }
+            goals = "clean test"
+            userSettingsSelection = "maven_settings"
+        }
+    }
+
+    triggers {
+        vcs {
+        }
+    }
+})
