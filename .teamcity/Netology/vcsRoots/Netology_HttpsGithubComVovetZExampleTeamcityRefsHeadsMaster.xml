@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vcs-root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="b96a9ad9-5118-4a8b-9e4f-10362f1b4c71" type="jetbrains.git" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>https://github.com/VovetZ/example-teamcity#refs/heads/master</name>
+  <param name="agentCleanFilesPolicy" value="ALL_UNTRACKED" />
+  <param name="agentCleanPolicy" value="ON_BRANCH_CHANGE" />
+  <param name="authMethod" value="PASSWORD" />
+  <param name="branch" value="refs/heads/master" />
+  <param name="ignoreKnownHosts" value="true" />
+  <param name="secure:password" value="credentialsJSON:b9d17903-c985-42f9-83fa-bf054251fb85" />
+  <param name="submoduleCheckout" value="CHECKOUT" />
+  <param name="teamcity:branchSpec" value="refs/heads/*" />
+  <param name="url" value="https://github.com/VovetZ/example-teamcity" />
+  <param name="useAlternates" value="AUTO" />
+  <param name="username" value="VovetZ" />
+  <param name="usernameStyle" value="USERID" />
+</vcs-root>
+
