@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="7bf1a9ff-7d0e-4f5d-8eba-e464c90d9cc0" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Build</name>
+  <description />
+  <settings>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="Maven (for master)" type="Maven2">
+        <conditions>
+          <equals name="teamcity.build.branch" value="master" />
+        </conditions>
+        <parameters>
+          <param name="goals" value="clean deploy" />
+          <param name="localRepoScope" value="agent" />
+          <param name="maven.path" value="%teamcity.tool.maven.DEFAULT%" />
+          <param name="pomLocation" value="pom.xml" />
+          <param name="runnerArgs" value="-Dmaven.test.failure.ignore=true" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="userSettingsSelection" value="settings(1).xml" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Maven (for other branches)" type="Maven2">
+        <conditions>
+          <does-not-equal name="teamcity.build.branch" value="master" />
+        </conditions>
+        <parameters>
+          <param name="goals" value="clean test" />
+          <param name="localRepoScope" value="agent" />
+          <param name="maven.path" value="%teamcity.tool.maven.DEFAULT%" />
+          <param name="pomLocation" value="pom.xml" />
+          <param name="runnerArgs" value="-Dmaven.test.failure.ignore=true" />
+          <param name="teamcity.step.mode" value="execute_if_failed" />
+          <param name="userSettingsSelection" value="settings(1).xml" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Netology_HttpsGithubComM1m1craExampleTeamcityGitRefsHeadsMaster" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:*" />
+          <param name="enableQueueOptimization" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="perfmon" type="perfmon">
+        <parameters>
+          <param name="teamcity.perfmon.feature.enabled" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+
