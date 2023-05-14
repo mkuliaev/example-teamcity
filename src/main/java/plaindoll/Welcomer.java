@@ -16,4 +16,7 @@ public class Welcomer{
 	public String sayGoodEveningHunter(){
 		return "Good evening, hunter!";
 	}
+	public String sayGoodNightHunter(){
+		return "Good night, hunter!";
+	}
 }
