@@ -32,6 +32,6 @@ public class WelcomerTest {
 	}
 	@Test
 	public void welcomerSayTaskReplica(){
-		assertThat(welcomer.saySome(), containsString("hunter"));
+		assertThat(welcomer.sayTaskReplica(), containsString("hunter"));
 	}
 }
