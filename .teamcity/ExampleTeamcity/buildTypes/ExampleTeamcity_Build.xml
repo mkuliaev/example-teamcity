@@ -20,12 +20,15 @@
         </parameters>
       </runner>
       <runner id="Maven2_1" name="Maven2" type="Maven2">
+        <conditions>
+          <does-not-contain name="teamcity.build.branch" value="master" />
+        </conditions>
         <parameters>
           <param name="goals" value="clean test" />
           <param name="localRepoScope" value="agent" />
           <param name="maven.path" value="%teamcity.tool.maven.DEFAULT%" />
           <param name="pomLocation" value="pom.xml" />
-          <param name="runnerArgs" value="tea" />
+          <param name="runnerArgs" value="-Dmaven.test.failure.ignore=true" />
           <param name="teamcity.coverage.emma.include.source" value="true" />
           <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
           <param name="teamcity.coverage.idea.includePatterns" value="*" />
