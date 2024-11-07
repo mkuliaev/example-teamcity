@@ -13,4 +13,7 @@ public class Welcomer{
 	public String saySome(){
 		return "something in the way";
 	}
+	public String sayArthurMorgan(){
+		return "Lack of something to feel important about is almost the greatest tragedy a hunter may have.";
+	}
 }
