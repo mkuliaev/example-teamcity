@@ -14,6 +14,6 @@ public class Welcomer{
 		return "something in the way";
 	}
 	public String sayArthurMorgan(){
-		return "Lack of something to feel important about is almost the greatest tragedy a man may have.";
+		return "Lack of something to feel important about is almost the greatest tragedy a hunter may have.";
 	}
 }
